@@ -8,7 +8,6 @@ public class TaskPlannerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TaskPlannerApplication.class, args);
-		// Text to test the commit
 	}
 
 }
