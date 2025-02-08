@@ -57,10 +57,9 @@ public class TaskController {
     )
     @GetMapping("/{id}")
     public ResponseEntity<Task> getTaskById(
-        @Parameter(description = "ID of the task to retrieve")
-        @PathVariable 
-        String Id){
-        return ResponseEntity.ok(taskService.getTaskById(Id));
+        @Parameter(description = "ID of the task to retrieve", required = true)
+        @PathVariable String id){
+        return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @Operation(
@@ -73,10 +72,8 @@ public class TaskController {
     )
     @PostMapping
     public ResponseEntity<Task> createTask(
-        @Parameter(description = "Task details")
-        @Valid 
-        @RequestBody 
-        TaskDTO taskDTO){
+        @Parameter(description = "Task details", required = true)
+        @Valid @RequestBody TaskDTO taskDTO){
         Task created = taskService.createTask(taskDTO);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
@@ -89,14 +86,20 @@ public class TaskController {
         responseCode = "200",
         description = "Task successfully updated"
     )
+    @ApiResponse(
+        responseCode = "400",
+        description = "Invalid task status provided"
+    )
+    @ApiResponse(
+        responseCode = "404",
+        description = "Task not found"
+    )
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(
-        @Parameter(description = "ID of the task to update")
+        @Parameter(description = "ID of the task to update", required = true)
         @PathVariable String id,
-        @Parameter(description = "Updated task details")
-        @Valid 
-        @RequestBody 
-        TaskDTO taskDTO
+        @Parameter(description = "Updated task details", required = true)
+        @Valid @RequestBody TaskDTO taskDTO
     ){
         Task updated = taskService.updateTask(id, taskDTO);
         return ResponseEntity.ok(updated);
@@ -110,11 +113,14 @@ public class TaskController {
         responseCode = "204",
         description = "Task successfully deleted"
     )
-    @DeleteMapping
+    @ApiResponse(
+        responseCode = "404",
+        description = "Task not found"
+    )
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(
-        @Parameter(description = "ID of the task to delete")
-        @PathVariable 
-        String id){
+        @Parameter(description = "ID of the task to delete", required = true)
+        @PathVariable String id){
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }

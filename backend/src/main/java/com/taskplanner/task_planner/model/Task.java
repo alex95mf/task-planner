@@ -38,9 +38,4 @@ public class Task {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
-    public static TaskStatus valueOf(String status2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'valueOf'");
-    }
 }
