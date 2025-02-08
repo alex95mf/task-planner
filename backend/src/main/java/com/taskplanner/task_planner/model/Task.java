@@ -1,7 +1,6 @@
 package com.taskplanner.task_planner.model;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import lombok.Data;
 
