@@ -2,8 +2,6 @@ package com.taskplanner.task_planner.service;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +46,7 @@ public class TaskService {
             task.setDescription(taskDTO.getDescription());
         }
         if(taskDTO.getStatus() != null){
-            task.setStatus(TaskStatus.valueOf(taskDTO.getStatus()));
+            task.setStatus(Task.valueOf(taskDTO.getStatus()));
         }
 
         return taskRepository.save(task);
