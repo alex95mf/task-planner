@@ -17,41 +17,104 @@ import com.taskplanner.task_planner.model.Task;
 import com.taskplanner.task_planner.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
+@Tag(name = "Tasks", description = "Task planner endpoints")
 public class TaskController {
     private final TaskService taskService;
 
+    @Operation(
+        summary = "Get all tasks",
+        description = "Retrieves a list of all tasks in the system"
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Successfully retrieved all tasks"
+    )
     @GetMapping
     public ResponseEntity<List<Task>> getAllTasks(){
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
+    @Operation(
+        summary = "Get task by ID",
+        description = "Retrieves a specific task by its ID"
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Successfully retrieved the task"
+    )
+    @ApiResponse(
+        responseCode = "404",
+        description = "Task not found"
+    )
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable String Id){
+    public ResponseEntity<Task> getTaskById(
+        @Parameter(description = "ID of the task to retrieve")
+        @PathVariable 
+        String Id){
         return ResponseEntity.ok(taskService.getTaskById(Id));
     }
 
+    @Operation(
+        summary = "Create new task",
+        description = "Creates a new task in the system"
+    )
+    @ApiResponse(
+        responseCode = "201",
+        description = "Task successfully created"
+    )
     @PostMapping
-    public ResponseEntity<Task> createTask(@Valid @RequestBody TaskDTO taskDTO){
+    public ResponseEntity<Task> createTask(
+        @Parameter(description = "Task details")
+        @Valid 
+        @RequestBody 
+        TaskDTO taskDTO){
         Task created = taskService.createTask(taskDTO);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
+    @Operation(
+        summary = "Update task",
+        description = "Updates an existing task"
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Task successfully updated"
+    )
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(
-        @PathVariable String id, 
-        @Valid @RequestBody TaskDTO taskDTO
+        @Parameter(description = "ID of the task to update")
+        @PathVariable String id,
+        @Parameter(description = "Updated task details")
+        @Valid 
+        @RequestBody 
+        TaskDTO taskDTO
     ){
         Task updated = taskService.updateTask(id, taskDTO);
         return ResponseEntity.ok(updated);
     }
 
+    @Operation(
+        summary = "Delete task",
+        description = "Deletes a task from the system"
+    )
+    @ApiResponse(
+        responseCode = "204",
+        description = "Task successfully deleted"
+    )
     @DeleteMapping
-    public ResponseEntity<Void> deleteTask(@PathVariable String id){
+    public ResponseEntity<Void> deleteTask(
+        @Parameter(description = "ID of the task to delete")
+        @PathVariable 
+        String id){
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
