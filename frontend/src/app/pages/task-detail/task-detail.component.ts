@@ -30,15 +30,18 @@ export class TaskDetailComponent implements OnInit {
   }
 
   loadTask(id: string) {
+    this.loading = true;
+    this.error = false;
     this.taskService.getTaskById(id).subscribe({
       next: (task) => {
         this.task = task;
         this.loading = false;
       },
       error: (error) => {
-        this.toastr.error(error.error.message || 'Error loading task');
         this.error = true;
         this.loading = false;
+        const errorMessage = error.error?.message || 'Error loading task';
+        this.toastr.error(errorMessage);
       }
     });
   }
@@ -47,10 +50,12 @@ export class TaskDetailComponent implements OnInit {
     if (this.task?.id && confirm('Are you sure you want to delete this task?')) {
       this.taskService.deleteTask(this.task.id).subscribe({
         next: () => {
+          this.toastr.success('Task deleted successfully');
           this.router.navigate(['/tasks']);
         },
         error: (error) => {
-          this.toastr.error(error.error.message || 'Error deleting task');
+          const errorMessage = error.error?.message || 'Error deleting task';
+          this.toastr.error(errorMessage);
         }
       });
     }

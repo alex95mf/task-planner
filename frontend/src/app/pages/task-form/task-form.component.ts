@@ -47,7 +47,8 @@ export class TaskFormComponent implements OnInit {
           this.taskForm.patchValue(task);
         },
         error: (error) => {
-          this.toastr.error(error.error.message || 'Error loading tasks');
+          const errorMessage = error.error?.message || 'Error loading task';
+          this.toastr.error(errorMessage);
           this.router.navigate(['/tasks']);
         }
       });
@@ -60,12 +61,18 @@ export class TaskFormComponent implements OnInit {
 
       if (this.isEditing && this.taskId) {
         this.taskService.updateTask(this.taskId, task).subscribe({
-          next: () => this.router.navigate(['/tasks']),
+          next: () => {
+            this.toastr.success('Task updated successfully');
+            this.router.navigate(['/tasks'])
+          },
           error: (error) => this.toastr.error(error.error.message || 'Error updating task')
         });
       } else {
         this.taskService.createTask(task).subscribe({
-          next: () => this.router.navigate(['/tasks']),
+          next: () => {
+            this.toastr.success('Task created successfully');
+            this.router.navigate(['/tasks'])
+          },
           error: (error) => this.toastr.error(error.error.message || 'Error creating task')
         });
       }

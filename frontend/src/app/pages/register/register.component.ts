@@ -29,14 +29,20 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value).subscribe({
+      const formValue = this.registerForm.value;
+      const trimmedData = {
+        username: formValue.username.trim(),
+        password: formValue.password
+      };
+      this.authService.register(trimmedData).subscribe({
         next: (response) => {
           localStorage.setItem('token', response.token);
           this.toastr.success('Successfully registered');
           this.router.navigate(['/tasks']);
         },
         error: (error) => {
-          this.toastr.error(error.error.message || 'Registration failed');
+          const errorMessage = error.error?.message || 'Registration failed';
+          this.toastr.error(errorMessage);
         }
       });
     }

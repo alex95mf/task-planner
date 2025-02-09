@@ -43,7 +43,8 @@ export class TaskListComponent implements OnInit {
           this.toastr.success('Task deleted successfully');
         },
         error: (error) => {
-          this.toastr.error(error.error.message || 'Error deleting task');
+          const errorMessage = error.error?.message || 'Error deleting task';
+          this.toastr.error(errorMessage);
         }
       });
     }
