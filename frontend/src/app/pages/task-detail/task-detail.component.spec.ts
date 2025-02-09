@@ -67,9 +67,9 @@ describe('TaskDetailComponent', () => {
   it('should handle error when loading task', () => {
     taskService.getTaskById.and.returnValue(throwError(() => new Error('Test error')));
     fixture.detectChanges();
-  
+
     component.loadTask('1');
-  
+
     expect(component.error).toBeTrue();
     expect(component.loading).toBeFalse();
     expect(toastrService.error).toHaveBeenCalled();

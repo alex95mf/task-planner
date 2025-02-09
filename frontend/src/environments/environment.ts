@@ -5,5 +5,6 @@ export interface Environment {
 
 export const environment: Environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'
+  // apiUrl: 'http://localhost:8080'
+  apiUrl: '' // Proxy configurado en nginx
 };
