@@ -1,0 +1,20 @@
+<header class="header">
+  <div class="header-content">
+    <div class="logo">
+      <a routerLink="/">Task Planner</a>
+    </div>
+
+    <nav class="nav-menu">
+      <ng-container *ngIf="isLoggedIn(); else loginLinks">
+        <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+        <a routerLink="/tasks/new" routerLinkActive="active">New Task</a>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </ng-container>
+
+      <ng-template #loginLinks>
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        <a routerLink="/register" routerLinkActive="active">Register</a>
+      </ng-template>
+    </nav>
+  </div>
+</header>
