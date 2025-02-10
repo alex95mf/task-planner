@@ -1,6 +1,6 @@
 # Task Planner - Sistema de Gestión de Tareas
 
-Este proyecto es un sistema de gestión de tareas, diseñado como parte de una prueba técnica para el puesto de **Fullstack Developer** (Angular + Java (Spring Boot)). La aplicación permite a los usuarios crear, actualizar y eliminar tareas, y está compuesta por un frontend en **Angular** y un backend en **Java (Spring Boot)**.
+Este proyecto es un sistema de gestión de tareas. La aplicación permite a los usuarios crear, actualizar y eliminar tareas, y está compuesta por un frontend en **Angular** y un backend en **Java (Spring Boot)**.
 
 ## Estructura del Proyecto
 
@@ -44,8 +44,8 @@ El proyecto está completamente dockerizado utilizando los siguientes contenedor
 
 El proyecto está desplegado en una instancia EC2 de AWS en la capa gratuita. Para acceder a la aplicación y la API:
 
-- **Frontend**: [Enlace a la app desplegada]
-- **API**: [Enlace a la API (Swagger UI)]
+- **APP Web**: http://3.88.210.8:4200/login
+- **API**: http://3.88.210.8:8080/swagger-ui/index.html
 
 ### Instrucciones de Ejecución Local
 
@@ -55,3 +55,29 @@ Para ejecutar el proyecto en tu máquina local, sigue estos pasos:
 
    ```bash
    git clone https://github.com/alex95mf/task-planner.git
+   ```
+2. Navega a la carpeta del proyecto:
+
+   ```bash
+   cd task-planner
+   ```
+3. Ejecuta docker-compose para levantar los contenedores:
+
+   ```bash
+   docker-compose up -d --build
+   ```
+
+4. Accede a la aplicación en el navegador y a la API a través de los siguientes enlaces:
+
+- **APP Web**: http://localhost:420
+- **API**:  http://localhost:8080
+
+### Pruebas
+Se han implementado pruebas unitarias para cada operación tanto en el frontend como en el backend.
+
+### Contacto
+Para cualquier consulta o comentario, puedes contactarme directamente en:
+- alex95mf@gmail.com
+- +593 993414364
+
+Gracias por revisar este proyecto!
