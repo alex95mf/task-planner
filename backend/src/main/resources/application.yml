@@ -20,6 +20,9 @@ spring:
 server:
   port: 8080
 
+app:
+  public-url: http://184.72.111.95:8080
+
 # JWT Configuration
 jwt:
   secret: 1ofhVAqY-5BXcUiJZ5fqVBwRLryN-AYHwgvnmloNBfotlrNwi0IzmQJWHs-io5d8zs9rsb81CWM8y1egHNm_OQ

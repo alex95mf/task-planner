@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -26,12 +28,6 @@ import org.springframework.context.annotation.Configuration;
             url = "http://springdoc.org"
         )
     ),
-    servers = {
-        @Server(
-            description = "Local ENV",
-            url = "http://localhost:8080"
-        )
-    },
     security = {
         @SecurityRequirement(name = "bearerAuth")
     }
@@ -45,4 +41,21 @@ import org.springframework.context.annotation.Configuration;
     in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
+    @Value("${app.public-url}")
+    private String publicUrl;
+
+    @OpenAPIDefinition(
+        servers = {
+            @Server(
+                description = "Local ENV",
+                url = "http://localhost:8080"
+            ),
+            @Server(
+                description = "Production ENV",
+                url = "${app.public-url}"
+            )
+        }
+    )
+    static class OpenApiServerConfig {
+    }
 }
